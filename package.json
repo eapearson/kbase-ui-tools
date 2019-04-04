@@ -1,0 +1,20 @@
+{
+    "name": "kbase-ui-tools",
+    "version": "0.0.1",
+    "description": "KBase UI TOols",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "update-plugin": "node scripts/update-plugin.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kbase/kbase-ui-tools.git"
+    },
+    "author": "KBase Developers",
+    "license": "SEE LICENSE IN LICENSE",
+    "bugs": {
+        "url": "https://github.com/kbase/kbase-ui-tools/issues"
+    },
+    "homepage": "https://github.com/kbase/kbase-ui-tools#readme"
+}

@@ -1,0 +1,28 @@
+## Plugin Configuration
+---
+package:
+    author: KBase Developer
+    name: example
+    description: The example panel and associated widgets
+source:
+    ## sources are relative to build/plugins/PACKAGE/source/javascript
+    ## NB: need to quote file names, otherwise
+    modules:
+    styles:
+        # - file: styles.css
+install:
+    widgets:
+        - module: ./panel
+          id: kb_plugin_example
+          type: es6
+
+    routes:
+        - path: ['example']
+          widget: kb_plugin_example
+          authorization: true
+    menu:
+        - name: example
+          definition:
+              path: ['example']
+              label: Example
+              icon: flask
