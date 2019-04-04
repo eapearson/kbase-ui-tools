@@ -15,9 +15,12 @@ install:
         - module: ./panel
           id: kb_plugin_example
           type: es6
-
     routes:
         - path: ['example']
+          queryParams: {}
+          params: {
+              view: 'view'
+          }
           widget: kb_plugin_example
           authorization: true
     menu:
