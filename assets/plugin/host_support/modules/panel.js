@@ -1,4 +1,4 @@
-define(['module', './iframer', 'css!./panel.css'], function(module, Iframer) {
+define(['module', './iframer', 'css!./panel.css'], function (module, Iframer) {
     'use strict';
 
     // The module url includes the initial / and, so we start after that,
@@ -59,7 +59,6 @@ define(['module', './iframer', 'css!./panel.css'], function(module, Iframer) {
         }
 
         run(params) {
-            // console.log('re-running the panel!', params);
             // The route to get here provides an optional path and
             // query. We simply pass those into the already-running
             // iframe-based app.

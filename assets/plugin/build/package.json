@@ -16,9 +16,13 @@
         "url": "https://github.com/kbase/kbase-ui-plugin-auth2-client/issues"
     },
     "homepage": "https://github.com/kbase/kbase-ui-plugin-auth2-client#readme",
-    "dependencies": {},
-    "devDependencies": {
+    "dependencies": {
+        "ajv": "6.10.0",
         "bluebird": "3.5.4",
+        "dagre": "0.8.4",
+        "preact": "10.0.0-alpha.1"
+    },
+    "devDependencies": {
         "bower-installer": "1.3.6",
         "chalk": "2.4.2",
         "fs-extra": "7.0.1",

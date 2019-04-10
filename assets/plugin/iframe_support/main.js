@@ -24,7 +24,6 @@ require.config({
         'knockout-switch-case': 'vendor/knockout-switch-case/knockout-switch-case',
         'knockout-validation': 'vendor/knockout-validation/knockout.validation',
         'knockout-mapping': 'vendor/bower-knockout-mapping/knockout.mapping',
-        'knockout-plus': 'lib/knockout-plus/knockout-plus',
         knockout: 'vendor/knockout/knockout',
         marked: 'vendor/marked/marked',
         moment: 'vendor/moment/moment',
@@ -32,7 +31,8 @@ require.config({
         md5: 'vendor/spark-md5/spark-md5',
         text: 'vendor/requirejs-text/text',
         yaml: 'vendor/requirejs-yaml/yaml',
-        uuid: 'vendor/pure-uuid/uuid'
+        uuid: 'vendor/pure-uuid/uuid',
+        underscore: 'vendor/underscore/underscore'
     },
     shim: {
         bootstrap: {
@@ -116,7 +116,12 @@ require([
             .then((dispatcher) => {
                 integration.onNavigate(({ path, params }) => {
                     // TODO: ever
-                    const view = path[0];
+                    let view;
+                    if (params.view) {
+                        view = params.view;
+                    } else {
+                        view = path[0];
+                    }
                     dispatcher.dispatch({ view, path, params });
                 });
                 integration.started();

@@ -29,6 +29,11 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './widget/manager', './s
             this.services = {
                 session: new Session({ runtime: this })
             };
+
+            this.featureSwitches = {};
+            this.configDb.getItem('ui.featureSwitches.available', []).forEach((featureSwitch) => {
+                this.featureSwitches[featureSwitch.id] = featureSwitch;
+            });
         }
 
         config(path, defaultValue) {
@@ -50,6 +55,8 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './widget/manager', './s
             return this.service(name);
         }
 
+        // COMM
+
         send(channel, message, data) {
             this.messenger.send({ channel, message, data });
         }
@@ -65,6 +72,21 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './widget/manager', './s
         drop(subscription) {
             this.messenger.unreceive(subscription);
         }
+
+        // FEATURE SWITCHES
+
+        featureEnabled(id, defaultValue = false) {
+            const featureSwitch = this.featureSwitches[id];
+            if (!featureSwitch) {
+                throw new Error('Feature switch "' + id + '" not defined');
+            }
+
+            const enabledFeatureSwitches = this.configDb.getItem('ui.featureSwitches.enabled');
+            const enabled = enabledFeatureSwitches.includes(id);
+            return enabled || defaultValue;
+        }
+
+        // LIFECYCLE
 
         start() {
             return Promise.try(() => {

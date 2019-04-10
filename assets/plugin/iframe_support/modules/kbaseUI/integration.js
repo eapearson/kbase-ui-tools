@@ -98,7 +98,7 @@ define(['./windowChannel', './runtime'], (WindowChannel, Runtime) => {
                 const { path, params } = message;
 
                 // TODO: proper routing to error page
-                if (!path || path.length === 0) {
+                if ((!path || path.length === 0) && !params.view) {
                     alert('no view provided...');
                     return;
                 }
