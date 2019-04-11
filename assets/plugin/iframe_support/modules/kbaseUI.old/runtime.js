@@ -1,21 +1,25 @@
-define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './services/session', './services/widget', './services/type'], (
+define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './widget/manager', './session'], (
     Promise,
     props,
     Messenger,
-    SessionService,
-    WidgetService,
-    TypeService
+    WidgetManager,
+    Session
 ) => {
     'use strict';
 
     class Runtime {
-        constructor({ token, username, config, pluginConfig }) {
+        constructor({ token, username, config }) {
             this.token = token;
             this.username = username;
+            this.widgetManager = new WidgetManager({
+                baseWidgetConfig: {
+                    runtime: this
+                }
+            });
 
             this.configDb = new props.Props({ data: config });
 
-            this.pluginPath = '/modules/plugins/dataview/iframe_root';
+            this.pluginPath = '/modules/plugins/auth2-client/iframe_root';
             this.pluginResourcePath = this.pluginPath + '/resources';
 
             this.messenger = new Messenger();
@@ -23,9 +27,7 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './services/session', '.
             this.heartbeatTimer = null;
 
             this.services = {
-                session: new SessionService({ runtime: this }),
-                widget: new WidgetService({ runtime: this }),
-                type: new TypeService({ runtime: this, config: pluginConfig.install.types })
+                session: new Session({ runtime: this })
             };
 
             this.featureSwitches = {};
@@ -43,10 +45,10 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './services/session', '.
         }
 
         service(name) {
-            if (!(name in this.services)) {
-                throw new Error('The UI service "' + name + '" is not defined');
+            switch (name) {
+            case 'session':
+                return this.services.session;
             }
-            return this.services[name];
         }
 
         getService(name) {

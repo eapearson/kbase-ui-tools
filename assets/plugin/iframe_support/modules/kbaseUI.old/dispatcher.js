@@ -89,11 +89,6 @@ define(['require'], (require) => {
                         view,
                         widget
                     };
-                    if (this.currentPanel.widget.init) {
-                        return this.currentPanel.widget.init();
-                    }
-                })
-                .then(() => {
                     return this.currentPanel.widget.attach(this.hostNode);
                 })
                 .then(() => {

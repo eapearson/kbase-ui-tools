@@ -728,7 +728,6 @@ define(['jquery', 'handlebars', 'd3'], function ($, Handlebars, d3) {
          */
         dbg: function (txt) {
             if (window.console) {
-                // eslint-disable-next-line no-console
                 console.log(txt);
             }
         },

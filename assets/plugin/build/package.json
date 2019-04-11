@@ -1,21 +1,21 @@
 {
-    "name": "kbase-ui-plugin-auth2-client",
+    "name": "kbase-ui-tools",
     "version": "0.1.0",
-    "description": "This repo contains a auth2-client",
+    "description": "This repo contains tools and assets to support integration of ui plugins into the ui",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/kbase/kbase-ui-plugin-auth2-client.git"
+        "url": "git+ssh://git@github.com/kbase/kbase-ui-tools.git"
     },
     "author": "",
     "license": "SEE LICENSE IN LICENSE",
     "bugs": {
-        "url": "https://github.com/kbase/kbase-ui-plugin-auth2-client/issues"
+        "url": "https://github.com/kbase/kbase-ui-tools/issues"
     },
-    "homepage": "https://github.com/kbase/kbase-ui-plugin-auth2-client#readme",
+    "homepage": "https://github.com/kbase/kbase-ui-tools#readme",
     "dependencies": {
         "ajv": "6.10.0",
         "bluebird": "3.5.4",

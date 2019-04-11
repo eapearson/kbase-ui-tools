@@ -1,3 +1,4 @@
+// BEGIN REQUIRE-CONFIG
 require.config({
     baseUrl: './modules',
     paths: {
@@ -10,6 +11,7 @@ require.config({
         datatables_bootstrap_css: 'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
         datatables_bootstrap: 'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
         font_awesome: 'vendor/font-awesome/css/font-awesome',
+        handlebars: 'vendor/handlebars/handlebars',
         highlight_css: 'vendor/highlightjs/default',
         highlight: 'vendor/highlightjs/highlight.pack',
         jquery: 'vendor/jquery/jquery',
@@ -32,7 +34,11 @@ require.config({
         text: 'vendor/requirejs-text/text',
         yaml: 'vendor/requirejs-yaml/yaml',
         uuid: 'vendor/pure-uuid/uuid',
-        underscore: 'vendor/underscore/underscore'
+        underscore: 'vendor/underscore/underscore',
+        d3: 'vendor/d3/d3',
+        d3_sankey: 'vendor/d3-plugins-sankey/sankey',
+        d3_sankey_css: 'vendor/d3-plugins-sankey/sankey',
+        dagre: 'vendor/dagre/dagre'
     },
     shim: {
         bootstrap: {
@@ -43,11 +49,10 @@ require.config({
         }
     }
 });
+// END REQUIRE-CONFIG
 
 require([
     'bluebird',
-    // 'kbaseUI/runtime',
-    // 'lib/auth2ClientRuntime',
     'kbaseUI/integration',
     'kbaseUI/dispatcher',
     'kb_knockout/load',
@@ -60,21 +65,6 @@ require([
         const integration = new Integration({
             rootWindow: window
         });
-
-        // Add custom event hooks into the integration.
-        // integration.channel.on('run', (message) => {
-        //     console.log('RUN', message);
-        // });
-
-        // try {
-        //     integration.start();
-        // } catch (ex) {
-        //     console.error('Error starting main: ', ex.message);
-        // }
-
-        // const {
-        //     params: { config, token, username, routeParams }
-        // } = integration.getParamsFromIFrame();
 
         const rootNode = document.getElementById('root');
 
@@ -102,30 +92,37 @@ require([
                 });
             })
             .then(() => {
-                // Add routes to panels here
-                const panels = [
+                // Dear developer, you can customize this file here between
+                // BEGIN ROUTES and END ROUTES
+                // BEGIN ROUTES
+                const routes = [
                     {
-                        module: 'moduleFileOrId',
                         view: 'viewIdPassedFromTopPanel',
+                        module: 'moduleFileOrId',
                         type: 'type: factory, es6 (default)'
                     }
                 ];
-                dispatcher = new Dispatcher({ runtime: integration.runtime, node: rootNode, panels });
+                // END ROUTES
+                dispatcher = new Dispatcher({ runtime: integration.runtime, node: rootNode, routes });
                 return dispatcher.start();
             })
             .then((dispatcher) => {
                 integration.onNavigate(({ path, params }) => {
-                    // TODO: ever
                     let view;
                     if (params.view) {
                         view = params.view;
                     } else {
-                        view = path[0];
+                        // TODO: remove all usages of path as a source
+                        // of the view.
+                        if (path && path.length > 0) {
+                            view = path[0];
+                        } else {
+                            throw new Error('View not defined');
+                        }
                     }
                     dispatcher.dispatch({ view, path, params });
                 });
                 integration.started();
-                // TODO: more channel listeners.
             });
     }).catch((err) => {
         console.error('ERROR', err);
