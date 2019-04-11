@@ -1,11 +1,12 @@
-define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './services/session', './services/widget', './services/type'], (
-    Promise,
-    props,
-    Messenger,
-    SessionService,
-    WidgetService,
-    TypeService
-) => {
+define([
+    'bluebird',
+    'kb_lib/props',
+    'kb_lib/messenger',
+    './services/session',
+    './services/widget',
+    './services/type',
+    './services/rpc'
+], (Promise, props, Messenger, SessionService, WidgetService, TypeService, RPCService) => {
     'use strict';
 
     class Runtime {
@@ -25,7 +26,8 @@ define(['bluebird', 'kb_lib/props', 'kb_lib/messenger', './services/session', '.
             this.services = {
                 session: new SessionService({ runtime: this }),
                 widget: new WidgetService({ runtime: this }),
-                type: new TypeService({ runtime: this, config: pluginConfig.install.types })
+                type: new TypeService({ runtime: this, config: pluginConfig.install.types }),
+                rpc: new RPCService({ runtime: this })
             };
 
             this.featureSwitches = {};

@@ -1,0 +1,15 @@
+## Config for kbase-ui-plugin-PLUGIN
+---
+package:
+  author: KBase Developer
+  name: PLUGIN
+source:
+  modules:
+  styles:
+    -
+      file: PLUGIN
+views:
+  -
+    module: panel
+    view: VIEW
+    type: factory
