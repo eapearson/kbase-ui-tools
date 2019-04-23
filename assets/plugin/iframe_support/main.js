@@ -5,14 +5,16 @@ require(['loader'], function () {
         'kbaseUI/integration',
         'kbaseUI/dispatcher',
         'kb_knockout/load',
+        'kb_lib/props',
         'yaml!./config.yml',
         'bootstrap',
         'css!font_awesome'
-    ], (Promise, Integration, Dispatcher, knockoutLoader, pluginConfig) => {
+    ], (Promise, Integration, Dispatcher, knockoutLoader, props, pluginConfig) => {
+        const pluginConfigDB = new props.Props({ data: pluginConfig });
         Promise.try(() => {
             const integration = new Integration({
                 rootWindow: window,
-                pluginConfig
+                pluginConfigDB
             });
             const rootNode = document.getElementById('root');
 
@@ -34,7 +36,7 @@ require(['loader'], function () {
                 })
                 .then(() => {
                     // // This installs all widgets from the config file.
-                    const widgets = pluginConfig.install.widgets;
+                    const widgets = pluginConfigDB.getItem('install.widgets', []);
                     widgets.forEach((widgetDef) => {
                         integration.runtime
                             .service('widget')
@@ -47,7 +49,7 @@ require(['loader'], function () {
                     dispatcher = new Dispatcher({
                         runtime: integration.runtime,
                         node: rootNode,
-                        views: pluginConfig.views
+                        views: pluginConfigDB.getItem('views', [])
                     });
                     return dispatcher.start();
                 })
