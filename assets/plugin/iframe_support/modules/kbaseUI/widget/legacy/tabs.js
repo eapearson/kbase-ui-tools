@@ -43,8 +43,13 @@
  browser: true,
  white: true
  */
-define(['jquery', './widget'], function ($) {
+define(['jquery', 'kb_lib/html', './widget'], function ($, html) {
     'use strict';
+
+    const t = html.tag,
+        a = t('a'),
+        div = t('div');
+
     $.KBWidget({
         name: 'kbTabs',
         version: '1.0.0',
@@ -67,7 +72,16 @@ define(['jquery', './widget'], function ($) {
                 }
 
                 var tab = $('<li class="' + (p.active ? 'active' : '') + '">'),
-                    tab_link = $('<a data-toggle="tab" data-id="' + p.name + '">' + p.name + '</a>');
+                    tab_link = $(
+                        a(
+                            {
+                                dataToggle: 'tab',
+                                dataId: p.name,
+                                dataKBTesthookTab: p.key
+                            },
+                            p.name
+                        )
+                    );
 
                 // animate by sliding tab up
                 if (p.animate === false) {
@@ -94,7 +108,13 @@ define(['jquery', './widget'], function ($) {
                 }
 
                 // add content pane
-                var c = $('<div class="tab-pane ' + (p.active ? 'active' : '') + '" data-id="' + p.name + '">');
+                var c = $(
+                    div({
+                        class: 'tab-pane ' + (p.active ? 'active' : ''),
+                        dataId: p.name,
+                        dataKBTesthookTabpane: p.key
+                    })
+                );
                 c.append(p.content || '');
                 tab_contents.append(c);
 

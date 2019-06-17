@@ -40,14 +40,19 @@ define(['bluebird', './adapters/objectWidget', './adapters/kbWidget', 'kb_lib/me
                 require(required, (factory) => {
                     if (typeof factory === 'undefined') {
                         // TODO: convert to real Error object
-                        reject({
-                            message: 'Factory widget maker is undefined for ' + widget.module,
-                            data: { widget: widget }
-                        });
+                        // reject({
+                        //     message: 'Factory widget maker is undefined for ' + widget.module,
+                        //     data: { widget: widget }
+                        // });
+                        reject(new Error('Factory widget maker is undefined for ' + widget.module));
                         return;
                     }
                     if (factory.make === undefined) {
-                        reject('Factory widget does not have a "make" method: ' + widget.name + ', ' + widget.module);
+                        reject(
+                            new Error(
+                                'Factory widget does not have a "make" method: ' + widget.name + ', ' + widget.module
+                            )
+                        );
                         return;
                     }
                     try {

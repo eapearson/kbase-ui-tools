@@ -6,15 +6,7 @@ define([
     './services/widget',
     './services/type',
     './services/rpc'
-], (
-    Promise,
-    props,
-    Messenger,
-    SessionService,
-    WidgetService,
-    TypeService,
-    RPCService
-) => {
+], (Promise, props, Messenger, SessionService, WidgetService, TypeService, RPCService) => {
     'use strict';
 
     class Runtime {
@@ -26,10 +18,7 @@ define([
             this.pluginConfigDB = pluginConfigDB;
 
             // TODO: fix this!
-            this.pluginPath =
-        '/modules/plugins/' +
-        pluginConfigDB.getItem('package.name') +
-        '/iframe_root';
+            this.pluginPath = '/modules/plugins/' + pluginConfigDB.getItem('package.name') + '/iframe_root';
             this.pluginResourcePath = this.pluginPath + '/resources';
 
             this.messenger = new Messenger();
@@ -47,11 +36,9 @@ define([
             };
 
             this.featureSwitches = {};
-            this.configDB
-                .getItem('ui.featureSwitches.available', [])
-                .forEach((featureSwitch) => {
-                    this.featureSwitches[featureSwitch.id] = featureSwitch;
-                });
+            this.configDB.getItem('ui.featureSwitches.available', []).forEach((featureSwitch) => {
+                this.featureSwitches[featureSwitch.id] = featureSwitch;
+            });
         }
 
         config(path, defaultValue) {
@@ -99,9 +86,7 @@ define([
                 throw new Error('Feature switch "' + id + '" not defined');
             }
 
-            const enabledFeatureSwitches = this.configDB.getItem(
-                'ui.featureSwitches.enabled'
-            );
+            const enabledFeatureSwitches = this.configDB.getItem('ui.featureSwitches.enabled');
             const enabled = enabledFeatureSwitches.includes(id);
             return enabled || defaultValue;
         }

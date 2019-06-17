@@ -13,10 +13,8 @@ define([], function () {
             d3_sankey_css: 'vendor/d3-plugins-sankey/sankey',
             datatables: 'vendor/datatables/jquery.dataTables',
             datatables_css: 'vendor/datatables/jquery.dataTables',
-            datatables_bootstrap_css:
-        'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
-            datatables_bootstrap:
-        'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
+            datatables_bootstrap_css: 'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
+            datatables_bootstrap: 'vendor/datatables-bootstrap3-plugin/datatables-bootstrap3',
             fileSaver: 'vendor/file-saver/FileSaver',
             font_awesome: 'vendor/font-awesome/css/font-awesome',
             handlebars: 'vendor/handlebars/handlebars',
@@ -31,12 +29,9 @@ define([], function () {
             kb_service: 'vendor/kbase-service-clients-js',
             kb_knockout: 'vendor/kbase-knockout-extensions-es6',
             kb_widget: 'vendor/kbase-ui-widget',
-            'knockout-arraytransforms':
-        'vendor/knockout-arraytransforms/knockout-arraytransforms',
-            'knockout-projections':
-        'vendor/knockout-projections/knockout-projections',
-            'knockout-switch-case':
-        'vendor/knockout-switch-case/knockout-switch-case',
+            'knockout-arraytransforms': 'vendor/knockout-arraytransforms/knockout-arraytransforms',
+            'knockout-projections': 'vendor/knockout-projections/knockout-projections',
+            'knockout-switch-case': 'vendor/knockout-switch-case/knockout-switch-case',
             'knockout-validation': 'vendor/knockout-validation/knockout.validation',
             'knockout-mapping': 'vendor/bower-knockout-mapping/knockout.mapping',
             knockout: 'vendor/knockout/knockout',
@@ -55,6 +50,9 @@ define([], function () {
             },
             highlight: {
                 deps: ['css!highlight_css']
+            },
+            d3_sankey: {
+                deps: ['d3', 'css!d3_sankey_css']
             }
         }
     });

@@ -67,7 +67,7 @@ define(['jquery', 'bluebird', 'kb_lib/html'], ($, Promise, html) => {
                 }
 
                 if (this.$container[this.jqueryObjectName] === undefined) {
-                    reject('Sorry, cannot find jquery widget ' + this.jqueryObjectName);
+                    reject(new Error('Sorry, cannot find jquery widget ' + this.jqueryObjectName));
                 } else {
                     resolve();
                 }

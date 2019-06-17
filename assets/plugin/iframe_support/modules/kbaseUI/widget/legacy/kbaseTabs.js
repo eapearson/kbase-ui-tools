@@ -122,7 +122,11 @@ define(['jquery', './widget', 'bootstrap'], function ($) {
                             //wired up not to pass along any arguments to methods invoked in this manner.
                             //
                             //Because bootstrap -sucks-.
-                            $.fn.tab.Constructor.prototype.activate.call($(this), $(this).parent('li'), $that.data('tabs-nav'));
+                            $.fn.tab.Constructor.prototype.activate.call(
+                                $(this),
+                                $(this).parent('li'),
+                                $that.data('tabs-nav')
+                            );
 
                             $.fn.tab.Constructor.prototype.activate.call($(this), $tab, $tab.parent(), function () {
                                 $(this).trigger({
@@ -193,13 +197,11 @@ define(['jquery', './widget', 'bootstrap'], function ($) {
 
             if ($nav.hasClass('active')) {
                 if ($nav.next('li').length) {
-                    $nav
-                        .next()
+                    $nav.next()
                         .find('a')
                         .trigger('click');
                 } else {
-                    $nav
-                        .prev('li')
+                    $nav.prev('li')
                         .find('a')
                         .trigger('click');
                 }

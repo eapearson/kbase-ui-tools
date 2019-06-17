@@ -2,7 +2,7 @@ define(['./windowChannel', './runtime'], (WindowChannel, Runtime) => {
     'use strict';
 
     class Integration {
-        constructor({ rootWindow, pluginConfig }) {
+        constructor({ rootWindow, pluginConfigDB }) {
             this.rootWindow = rootWindow;
             this.container = rootWindow.document.body;
             // channelId, frameId, hostId, parentHost
@@ -11,7 +11,7 @@ define(['./windowChannel', './runtime'], (WindowChannel, Runtime) => {
 
             // The original params from the plugin (taken from the url)
             this.pluginParams = this.hostParams.params;
-            this.pluginConfig = pluginConfig;
+            this.pluginConfigDB = pluginConfigDB;
 
             this.authorized = null;
 
@@ -145,9 +145,12 @@ define(['./windowChannel', './runtime'], (WindowChannel, Runtime) => {
                 // ready message, is itself ready, and is ready for
                 // the iframe app to start running.
                 this.channel.on('start', (payload) => {
-                    const { token, username, config, realname, email } = payload;
+                    const {
+                        authorization: { token, username, realname },
+                        config
+                    } = payload;
                     if (token) {
-                        this.authorization = { token, username, realname, email };
+                        this.authorization = { token, username, realname };
                     } else {
                         this.authorization = null;
                     }
@@ -160,7 +163,7 @@ define(['./windowChannel', './runtime'], (WindowChannel, Runtime) => {
                         config,
                         token,
                         username,
-                        pluginConfig: this.pluginConfig
+                        pluginConfigDB: this.pluginConfigDB
                     });
 
                     this.runtime
